@@ -1,4 +1,24 @@
 button a {
    text-decoration: none;
-   color: initial;
+   text-decoration-color: orange;
+}
+
+h1 {
+  text-align: center;
+  text-decoration-style: dotted;
+}
+
+h2 {
+  text-decoration: underline;
+}
+
+body {
+  background-color: #F5ECCE;
+}
+
+img {
+  position: fixed;
+  bottom: 180px;
+  right: 400px;
+  width: 400px;
 }

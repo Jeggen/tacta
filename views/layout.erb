@@ -2,14 +2,21 @@
 <html>
 <head>
   <title>Tacta</title>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">`
   <link rel="stylesheet" href="<%= url('/app.css') %>" type="text/css"/>
 </head>
 <body>
 
-<h1>Tacta Contact Manager</h1>
-<hr/>
+  <div class="jumbotron">
+    <div class="container">
 
-<%= yield %>
+      <h1>Tacta Contact Manager</h1>
+      <hr/>
+      <%= yield %>
+    </div>
+  </div>
+
+<img src='http://www.wasagabeach.com/PublishingImages/Pages/Contacts/Address-Book-icon.png' alt='Telefoonboek'>
 
 </body>
 </html>
