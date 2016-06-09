@@ -8,7 +8,9 @@ end
 
 require './contacts_file'
 
-get '/contacts' do
-   @contacts = read_contacts
-   erb :'contacts/index'
+get '/contacts/:i' do
+   @i = params[:i].to_i
+   contacts = read_contacts
+   @contact = contacts[@i]
+   erb :'contacts/show'
 end
