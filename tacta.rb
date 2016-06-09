@@ -24,7 +24,7 @@ def action_new( contacts )
 
    contacts << contact
 
-   write _contacts (contacts)
+   write_contacts(contacts)
 
    puts
    puts "New contact created:"
