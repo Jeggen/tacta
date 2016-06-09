@@ -1,86 +1,81 @@
-# require 'sinatra'
-#
-# set :port, 4567
-#
-# get '/' do
-#    "<h1>Tacta Contact Manager</h1>"
-# end
-#
-# require './contacts_file'
-#
-# get '/contacts/:i' do
-#    @i = params[:i].to_i
-#    contacts = read_contacts
-#    @contact = contacts[@i]
-#    erb :'contacts/show'
-# end
-
 require 'sinatra'
 
 set :port, 4567
 
 get '/' do
-   "<h1>Tacta Contact Manager</h1>"
+ "<h1>Tacta Contact Manager</h1>"
 end
 
 
 require './contacts_file'
 
 get '/contacts' do
-   @contacts = read_contacts
-   erb :'contacts/index'
+ @contacts = read_contacts
+ erb :'contacts/index'
 end
 
 get '/contacts/new' do
-   erb :'contacts/new'
+ erb :'contacts/new'
+end
+
+get '/contacts/search' do
+ erb :'contacts/search'
+end
+
+post '/contacts/search' do
+ @q = params[:query]
+ @contacts = read_contacts.select do |contact|
+   contact[:name].include?(@q)
+ end
+ erb :'contacts/results'
 end
 
 get '/contacts/:i/delete' do
-   i = params[:i].to_i
+ i = params[:i].to_i
 
-   contacts = read_contacts
-   contacts.delete_at( i )
-   write_contacts( contacts )
+ contacts = read_contacts
+ contacts.delete_at( i )
+ write_contacts( contacts )
 
-   redirect "/contacts"
+ redirect "/contacts"
 end
 
 get '/contacts/:i/edit' do
-   @i = params[:i].to_i
+ @i = params[:i].to_i
 
-   contacts = read_contacts
-   @contact = contacts[@i]
+ contacts = read_contacts
+ @contact = contacts[@i]
 
-   erb :'contacts/edit'
+ erb :'contacts/edit'
 end
 
 post '/contacts/:i/update' do
-   i = params[:i].to_i
+ i = params[:i].to_i
 
-   updated_contact = { name: params[:name], phone: params[:phone], email: params[:email] }
+ updated_contact = { name: params[:name], phone: params[:phone], email: params[:email] }
 
-   contacts = read_contacts
-   contacts[i] = updated_contact
-   write_contacts( contacts )
+ contacts = read_contacts
+ contacts[i] = updated_contact
+ write_contacts( contacts )
 
-   redirect "/contacts/#{i}"
+ redirect "/contacts/#{i}"
 end
 
 post '/contacts' do
-   new_contact = { name: params[:name], phone: params[:phone], email: params[:email] }
+ new_contact = { name: params[:name], phone: params[:phone], email: params[:email] }
 
-   contacts = read_contacts
-   contacts << new_contact
-   write_contacts( contacts )
+ contacts = read_contacts
+ contacts << new_contact
+ write_contacts( contacts )
 
-   i = contacts.length - 1
+ i = contacts.length - 1
 
-   redirect "/contacts/#{i}"
+ redirect "/contacts/#{i}"
 end
 
 get '/contacts/:i' do
-   @i = params[:i].to_i
-   contacts = read_contacts
-   @contact = contacts[@i]
-   erb :'contacts/show'
+ @i = params[:i].to_i
+ contacts = read_contacts
+ @contact = contacts[@i]
+ erb :'contacts/show'
 end
