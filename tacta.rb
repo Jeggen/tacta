@@ -4,11 +4,44 @@ def index(contacts)
   end
 end
 
+def action_new( contacts )
+   contact = create_new
+
+   contacts << contact
+
+   puts
+   puts "New contact created:"
+   puts
+
+   show( contact )
+   puts
+end
+
+def action_show( contacts, i )
+   contact = contacts[i-1]
+
+   puts
+   show( contact )
+   puts
+end
+
 def show(contact)
-  puts
-  puts "#{contact[:name]}"
-  puts "phone: #{contact[:phone]}"
-  puts "email: #{contact[:email]}"
+   puts "#{contact[:name]}"
+   puts "phone: #{contact[:phone]}"
+   puts "email: #{contact[:email]}"
+end
+
+def action_new( contacts )
+   contact = create_new
+
+   contacts << contact
+
+   puts
+   puts "New contact created:"
+   puts
+
+   show( contact )
+   puts
 end
 
 def create_new
@@ -47,25 +80,8 @@ loop do
    break if response == "q"
 
    if response == "n"
-
-   contact = create_new
-
-   contacts << contact
-
-   puts
-   puts "New contact created:"
-   puts
-
-   show( contact )
-   puts
-else
-      i = response.to_i
-
-      contact = contacts[i-1]
-
-      puts
-      show( contact )
-      puts
+      action_new( contacts )
+   else
+      action_show( contacts, response.to_i )
    end
-
 end
